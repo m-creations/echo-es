@@ -1,6 +1,7 @@
 {
   "template": "section",
-  "index_patterns": ["section*"],
+  "version": 1,
+  "index_patterns": ["*"],
   "settings": {
     "number_of_shards": 1
   },
