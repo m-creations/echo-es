@@ -1,0 +1,116 @@
+{
+  "template": "section",
+  "index_patterns": ["section*"],
+  "settings": {
+    "number_of_shards": 1
+  },
+  "aliases": {},
+  "mappings": {
+    "section" : {
+      "dynamic" : "false",
+      "_source": {
+        "enabled" : true
+      },
+      "properties": {
+        "doc_type" : {
+          "type" : "keyword"
+        },
+        "doc_subtype": {
+          "type": "keyword"
+        },
+        "language": {
+          "type": "keyword"
+        },
+        "creation_date": {
+          "type": "date",
+          "format": "yyyy-MM-dd||epoch_millis"
+        },
+        "author": {
+          "type": "text"
+        },
+        "permissions": {
+          "type": "text"
+        },
+        "file_path": {
+          "type": "keyword"
+        },
+        "file_type": {
+          "type": "keyword"
+        },
+        "is_subsection": {
+          "type": "boolean"
+        },
+        "section_pages": {
+          "properties": {
+            "start": {
+              "type": "integer"
+            },
+            "end": {
+              "type": "integer"
+            }
+          }
+        },
+        "section_offsets": {
+          "properties": {
+            "start": {
+              "type": "integer"
+            },
+            "end": {
+              "type": "integer"
+            }
+          }
+        },
+        "title": {
+          "type": "text",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "full_text": {
+          "type": "text",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "tokens": {
+          "type": "keyword"
+        },
+        "pos_tags": {
+          "type": "keyword"
+        },
+        "lemmas": {
+          "type": "keyword"
+        },
+        "lemmas_no_stopwords": {
+          "type": "keyword"
+        },
+        "lda_topic_vector": {
+          "type": "scaled_float",
+          "scaling_factor": 1000000
+        },
+        "sentence_emb": {
+          "type": "scaled_float",
+          "scaling_factor": 1000000
+        },
+        "ner": {
+          "type": "nested",
+          "properties": {
+            "types": {
+              "type": "keyword"
+            },
+            "surface_forms": {
+              "type": "keyword"
+            },
+            "offsets":  {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
+  }
+}
