@@ -15,7 +15,7 @@ for i in `seq 1 10`; do
   "doc_type": "doc",
   "doc_subtype": "handbook",
   "language": "en",
-  "creation_date": "2018-06-20 11:00:00",
+  "creation_date": "2018-06-20",
   "author": "Max Mueller",
   "permissions": "roleA",
   "file_path": "someServer/projectA/handbookBpdf",
