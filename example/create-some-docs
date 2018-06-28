@@ -1,0 +1,203 @@
+#!/bin/bash
+
+# Test if user has jq and suggest to install it
+
+FORMATTER=jq
+
+if ! command -v $FORMATTER &>/dev/null ; then
+    printf "\nYou don't seem to have '$FORMATTER' installed. If you want to work with JSON seriously, please install it.\n\n"
+    FORMATTER=cat
+fi
+
+for i in `seq 1 10`; do
+    curl -sS -XPOST -H "Content-Type: application/json" --connect-timeout 3 -d @- http://localhost:9200/project1/section/ <<EOF
+{
+  "doc_type": "doc",
+  "doc_subtype": "handbook",
+  "language": "en",
+  "creation_date": "2018-06-20 11:00:00",
+  "author": "Max Mueller",
+  "permissions": "roleA",
+  "file_path": "someServer/projectA/handbookBpdf",
+  "file_type": "pdf",
+  "is_subsection": true,
+  "section_pages": {
+    "start": 1,
+    "end": 1
+  },
+  "section_offsets": {
+    "start": 0,
+    "end": 20
+  },
+  "title": "Wiki Elasticsearch",
+  "full_text": "Wiki Elasticsearch - Elasticsearch ist eine Suchmaschine auf Basis von Lucene. Das in Java geschriebene Programm speichert die Suchergebnisse in einem NoSQL-Format (JSON) und gibt sie über ein RESTful-Webinterface aus.",
+  "tokens": [
+    [
+      "Wiki",
+      "Elasticsearch",
+      "-",
+      "Elasticsearch",
+      "ist",
+      "eine",
+      "Suchmaschine",
+      "auf",
+      "Basis",
+      "von",
+      "Lucene",
+      "."
+    ],
+    [
+      "Das",
+      "in",
+      "Java",
+      "geschriebene",
+      "Programm",
+      "speichert",
+      "die",
+      "Suchergebnisse",
+      "in",
+      "einem",
+      "NoSQL-Format",
+      "(",
+      "JSON",
+      ")",
+      "und",
+      "gibt",
+      "sie",
+      "über",
+      "ein",
+      "RESTful-Webinterface",
+      "aus",
+      "."
+    ]
+  ],
+  "pos_tags": [
+    [
+      "PROPN",
+      "PROPN",
+      "PUNCT",
+      "ADV",
+      "AUX",
+      "DET",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "PUNCT"
+    ],
+    [
+      "DET",
+      "ADP",
+      "PROPN",
+      "ADJ",
+      "NOUN",
+      "VERB",
+      "DET",
+      "NOUN",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT",
+      "PROPN",
+      "PUNCT",
+      "CONJ",
+      "VERB",
+      "PRON",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PART",
+      "PUNCT"
+    ]
+  ],
+  "lemmas": [
+    [
+      "Wiki",
+      "Elasticsearch",
+      "-",
+      "Elasticsearch",
+      "sein",
+      "einen",
+      "Suchmaschine",
+      "auf",
+      "Basis",
+      "von",
+      "Lucene",
+      "."
+    ],
+    [
+      "Das",
+      "in",
+      "Java",
+      "geschrieben",
+      "Programm",
+      "speichern",
+      "der",
+      "Suchergebnisse",
+      "in",
+      "einer",
+      "NoSQL-Format",
+      "(",
+      "JSON",
+      ")",
+      "und",
+      "geben",
+      "ich",
+      "über",
+      "einen",
+      "RESTful-Webinterface",
+      "aus",
+      "."
+    ]
+  ],
+  "lemmas_no_stopwords": [
+    [
+      "Wiki",
+      "Elasticsearch",
+      "-",
+      "Elasticsearch",
+      "Suchmaschine",
+      "Basis",
+      "Lucene",
+      "."
+    ],
+    [
+      "Das",
+      "Java",
+      "geschrieben",
+      "Programm",
+      "speichern",
+      "Suchergebnisse",
+      "NoSQL-Format",
+      "(",
+      "JSON",
+      ")",
+      "RESTful-Webinterface",
+      "."
+    ]
+  ],
+  "lda_topic_vector": [
+    0.25,
+    0.31,
+    0.61,
+    0.92
+  ],
+  "ner": {
+    "types": [["Software", "Work"]],
+    "surfaceforms":["ElasticSearch"],
+    "offsets": [[25,35]]
+  },
+  "sentence_emb": [
+    0.4,
+    0.3,
+    0.5,
+    0.52
+  ]
+}
+EOF
+
+    echo
+done
+
+curl -sS -XGET -H "Content-Type: application/json" --connect-timeout 3  http://localhost:9200/project1/_search?q=* | $FORMATTER
