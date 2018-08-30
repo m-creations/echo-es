@@ -26,8 +26,11 @@
           "type": "date",
           "format": "yyyy-MM-dd||epoch_millis"
         },
-        "author": {
-          "type": "text"
+        "pipeline": {
+          "type": "keyword"
+        },
+        "authors": {
+          "type": "keyword"
         },
         "permissions": {
           "type": "text"
@@ -78,6 +81,9 @@
           }
         },
         "tokens": {
+          "type": "keyword"
+        },
+        "tokens_no_stopwords": {
           "type": "keyword"
         },
         "pos_tags": {
