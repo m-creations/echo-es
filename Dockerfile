@@ -1,6 +1,6 @@
 ## -*- docker-image-name: "mcreations/es-am" -*-
 
-FROM mcreations/elasticsearch:6.3.0
+FROM mcreations/elasticsearch:6.3
 
 LABEL maintainer="Kambiz Darabi <darabi@m-creations.net>"
 LABEL vendor="mcreations"
