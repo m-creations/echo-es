@@ -8,5 +8,8 @@ LABEL vendor="mcreations"
 ADD templates/* /etc/elastic/templates/
 ADD plugins/ /opt/elastic/plugins/
 
+ENV ESOPT_http__cors__enabled true
+ENV ESOPT_http__cors__allow-origin *
+
 ENTRYPOINT ["/start-elastic.sh"]
 
